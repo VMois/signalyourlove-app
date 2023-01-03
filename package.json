@@ -1,8 +1,8 @@
 {
   "name": "signalyourlove",
-  "productName": "signalyourlove",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "productName": "Signal Your Love",
+  "version": "0.0.1",
+  "description": "Show love by looking into your Signal chat statistics",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -13,10 +13,10 @@
   },
   "keywords": [],
   "author": {
-    "name": "VMois",
+    "name": "Vladyslav Moisieienkov",
     "email": "vmois@protonmail.com"
   },
-  "license": "MIT",
+  "license": "UNLICENSED",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
     "@electron-forge/maker-deb": "^6.0.4",
@@ -35,13 +35,16 @@
     "eslint-plugin-import": "^2.26.0",
     "fork-ts-checker-webpack-plugin": "^7.2.14",
     "node-loader": "^2.0.0",
+    "postcss-loader": "^7.0.2",
     "style-loader": "^3.3.1",
+    "tailwindcss": "^3.2.4",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "typescript": "~4.5.4"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "postcss-scss": "^4.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
