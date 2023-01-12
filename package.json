@@ -2,7 +2,7 @@
   "name": "signalyourlove",
   "productName": "Signal Your Love",
   "version": "0.0.1",
-  "description": "Show love by looking into your Signal chat statistics",
+  "description": "The app to display your Signal chat statistics",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -43,6 +43,8 @@
     "typescript": "~4.5.4"
   },
   "dependencies": {
+    "@signalapp/better-sqlite3": "^8.0.4",
+    "@types/better-sqlite3": "^7.6.3",
     "electron-squirrel-startup": "^1.0.0",
     "postcss-scss": "^4.0.6",
     "react": "^18.2.0",
