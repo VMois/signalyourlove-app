@@ -32,9 +32,10 @@ export function getConversations(): Conversation[] {
 }
 
 export function getStatistics(conversationId: string): any {
-    let stats = {
+    const stats = {
         'name': '',
         'total_messages': -1,
+        'total_calls': -1,
         'top_day': {
             'date': '',
             'total': -1,
@@ -53,5 +54,7 @@ export function getStatistics(conversationId: string): any {
     stats['top_day']['total'] = topDay['total'];
 
     stats['total_days'] = db.prepare('SELECT COUNT(DISTINCT DATE(sent_at/1000, "unixepoch")) as total FROM messages WHERE conversationId = ? AND type != "call-history"').get(conversationId)['total'];
+
+    stats['total_calls'] = db.prepare('SELECT COUNT(*) as total FROM messages WHERE type = "call-history" AND json_extract(json, "$.callHistoryDetails.wasDeclined") = False AND conversationId = ?').get(conversationId)['total'];
     return stats;
 }
