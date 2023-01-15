@@ -9,6 +9,7 @@ function App() {
     const [statistics, setStatistics]: [any, any] = useState({});
 
     const handleSelect = (convoId: string) => setConversationId(convoId);
+    const handleExit = () => setConversationId('');
 
     useEffect(() => {
       if (conversationId) {
@@ -19,7 +20,7 @@ function App() {
 
     let toDisplay;
     if (conversationId) {
-      toDisplay = <Display statistics={statistics} />;
+      toDisplay = <Display statistics={statistics} onExit={handleExit} />;
     } else {
       toDisplay = <SelectConversation onSelect={handleSelect} />;
     }
