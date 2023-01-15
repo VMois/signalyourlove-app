@@ -23,7 +23,7 @@ export default function SelectConversation({ onSelect }) {
                 </h2>
             </div>
             <div className="max-w-2xl mx-auto">
-                <label htmlFor="countries" className="block mt-24 mb-2 text-1xl font-bold text-gray-600">Select a conversation</label>
+                <label htmlFor="countries" className="block mt-24 mb-2 text-1xl font-bold text-gray-700">Select a conversation</label>
                 <select value={conversationId} onInput={e => setConversationId(e.target.value)} id="conversations" className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                     {conversations.map(function(convo, _){
                         return (
