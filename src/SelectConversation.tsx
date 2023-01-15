@@ -15,10 +15,10 @@ export default function SelectConversation({ onSelect }) {
     return (
         <div className="mt-6 px-24 container mx-auto">
             <div className="mt-24 mb-12">
-                <h1 className="text-indigo-500 text-center text-6xl font-bold">
+                <h1 className="text-rose-500 text-center text-6xl font-bold">
                 Welcome!
                 </h1>
-                <h2 className="mt-4 text-indigo-400 text-center text-4xl font-bold">
+                <h2 className="mt-4 text-rose-400 text-center text-4xl font-bold">
                     It is time to signal your love
                 </h2>
             </div>
@@ -32,7 +32,7 @@ export default function SelectConversation({ onSelect }) {
                     })}
                 </select>
             </div>
-            <button onClick={() => onSelect(conversationId)} className="mt-12 block uppercase mx-auto shadow bg-indigo-500 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white text-1xl py-3 px-10 rounded">
+            <button onClick={() => onSelect(conversationId)} className="mt-12 block uppercase mx-auto shadow bg-rose-500 hover:bg-rose-400 focus:shadow-outline focus:outline-none text-white text-1xl py-3 px-10 rounded">
                 Show statistics
             </button>
         </div>
