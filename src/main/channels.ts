@@ -1,7 +1,7 @@
 import SQL, { Database } from '@signalapp/better-sqlite3';
 
 import { getDBPath, getDBKey } from './config';
-import { Conversation } from '../data_types';
+import { Conversation, Statistics, MessagesPerDay } from '../data_types';
 
 let db: Database | undefined = undefined;
 
@@ -32,15 +32,18 @@ export function getConversations(): Conversation[] {
 }
 
 export function getStatistics(conversationId: string): any {
-    const stats = {
+    const stats: Statistics = {
         'name': '',
         'total_messages': -1,
         'total_calls': -1,
+        'messages_per_day': [],
         'top_day': {
             'date': '',
-            'total': -1,
+            'count': -1,
         },
         'total_days': -1,
+        'first_date': '',
+        'last_date': '',
     }
 
     init_db();
@@ -49,9 +52,11 @@ export function getStatistics(conversationId: string): any {
 
     stats['total_messages'] = db.prepare('SELECT COUNT(*) as total FROM messages WHERE conversationId = ? AND type != "call-history"').get(conversationId)['total'];
 
-    const topDay = db.prepare('SELECT DATE(sent_at/1000, "unixepoch") as date, COUNT(*) as total FROM messages WHERE conversationId = ? AND type != "call-history" GROUP BY DATE(sent_at/1000, "unixepoch") ORDER BY total DESC LIMIT 1').get(conversationId);
-    stats['top_day']['date'] = topDay['date'];
-    stats['top_day']['total'] = topDay['total'];
+    const messagesPerDay: MessagesPerDay[] = db.prepare('SELECT DATE(sent_at/1000, "unixepoch") as date, COUNT(*) as count FROM messages WHERE conversationId = ? AND type != "call-history" GROUP BY DATE(sent_at/1000, "unixepoch") ORDER BY count DESC').all(conversationId);
+    stats['top_day'] = messagesPerDay[0];
+    stats['first_date'] = messagesPerDay.reduce((prev, curr) => (prev.date < curr.date) ? prev : curr).date;
+    stats['last_date'] = messagesPerDay.reduce((prev, curr) => (prev.date > curr.date) ? prev : curr).date;
+    stats['messages_per_day'] = messagesPerDay;
 
     stats['total_days'] = db.prepare('SELECT COUNT(DISTINCT DATE(sent_at/1000, "unixepoch")) as total FROM messages WHERE conversationId = ? AND type != "call-history"').get(conversationId)['total'];
 
