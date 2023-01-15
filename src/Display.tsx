@@ -1,3 +1,6 @@
+import CalendarHeatmap from 'react-calendar-heatmap';
+import 'react-calendar-heatmap/dist/styles.css';
+
 function Display({ statistics }) {
     if (Object.keys(statistics).length == 0) {
         return (
@@ -35,8 +38,48 @@ function Display({ statistics }) {
                 <div className="shadow p-4 col-span-2">
                     <p className="text-indigo-500 text-base font-medium uppercase leading-4">Our record is</p>
                     <p className="text-black font-bold text-2xl inline-flex items-center space-x-2 my-2">
-                        <span>{statistics.top_day.total} messages on {statistics.top_day.date}</span>
+                        <span>{statistics.top_day.count} messages on {statistics.top_day.date}</span>
                     </p>
+                </div>
+                <div className="shadow p-4 col-span-2">
+                    <CalendarHeatmap
+                        startDate={new Date(statistics.first_date)}
+                        endDate={new Date(statistics.last_date)}
+                        values={statistics.messages_per_day}
+                        classForValue={(value) => {
+                            if (!value) {
+                              return 'fill-white';
+                            }
+                            const percentage = value.count / statistics.top_day.count;
+                            if (percentage > 0.9) {
+                                return 'fill-indigo-900';
+                            } else if (percentage > 0.8) {
+                                return 'fill-indigo-800';
+                            } else if (percentage > 0.7) {
+                                return 'fill-indigo-700';
+                            } else if (percentage > 0.6) {
+                                return 'fill-indigo-600';
+                            } else if (percentage > 0.5) {
+                                return 'fill-indigo-500';
+                            } else if (percentage > 0.4) {
+                                return 'fill-indigo-400';
+                            } else if (percentage > 0.3) {
+                                return 'fill-indigo-300';
+                            } else if (percentage > 0.2) {
+                                return 'fill-indigo-200';
+                            } else if (percentage > 0.1) {
+                                return 'fill-indigo-100';
+                            } else {
+                                return 'fill-indigo-50';
+                            }
+                        }}
+                        titleForValue={(value) => {
+                            if (!value) {
+                                return '0 messages';
+                            }
+                            return `${value.count} messages on ${value.date}`;
+                        }}
+                    />
                 </div>
                 </div>
         </div>
