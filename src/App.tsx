@@ -8,7 +8,7 @@ function App() {
     const [conversationId, setConversationId]: [string, any] = useState('');
     const [statistics, setStatistics]: [any, any] = useState({});
 
-    const handleSelect = (convoId: string) => setConversationId(convoId);
+    const handleSelect = (convoId: string): void => setConversationId(convoId);
     const handleExit = () => setConversationId('');
 
     useEffect(() => {

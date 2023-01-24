@@ -1,7 +1,9 @@
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 
-function Display({ statistics, onExit }) {
+import { Statistics } from './types.d';
+
+function Display({ statistics, onExit }: { statistics: Statistics, onExit: () => void }) {
     if (Object.keys(statistics).length == 0) {
         return (
             <h1 className="text-rose-500 text-center text-6xl font-bold">
