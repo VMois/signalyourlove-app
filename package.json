@@ -24,6 +24,7 @@
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
     "@electron-forge/plugin-webpack": "^6.0.4",
+    "@types/better-sqlite3": "^7.6.3",
     "@types/react": "^18.0.26",
     "@types/react-calendar-heatmap": "^1.6.3",
     "@types/react-dom": "^18.0.10",
@@ -45,7 +46,6 @@
   },
   "dependencies": {
     "@signalapp/better-sqlite3": "^8.0.4",
-    "@types/better-sqlite3": "^7.6.3",
     "electron-squirrel-startup": "^1.0.0",
     "postcss-scss": "^4.0.6",
     "react": "^18.2.0",
