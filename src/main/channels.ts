@@ -1,7 +1,7 @@
 import SQL, { Database } from '@signalapp/better-sqlite3';
 
 import { getDBPath, getDBKey } from './config';
-import { Conversation, Statistics, MessagesPerDay } from '../data_types';
+import { Conversation, Statistics, MessagesPerDay } from '../types.d';
 
 let db: Database | undefined = undefined;
 
@@ -22,7 +22,7 @@ export function getConversations(): Conversation[] {
                             AND name IS NOT NULL ORDER BY active_at DESC`);
 
     const convos: Conversation[] = [];
-    for (let convo of stm.all()) {
+    for (const convo of stm.all()) {
         convos.push({
             id: convo['id'],
             name: convo['name'],
@@ -31,7 +31,7 @@ export function getConversations(): Conversation[] {
     return convos;
 }
 
-export function getStatistics(conversationId: string): any {
+export function getStatistics(conversationId: string): Statistics {
     const stats: Statistics = {
         'name': '',
         'total_messages': -1,
