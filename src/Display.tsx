@@ -4,6 +4,13 @@ import 'react-calendar-heatmap/dist/styles.css';
 import { Statistics } from './types.d';
 
 function Display({ statistics, onExit }: { statistics: Statistics, onExit: () => void }) {
+
+    const formatDate = (date: string): string => {
+        const dateObj = new Date(date);
+        const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return dateObj.toLocaleDateString('en-US', options);
+    }
+
     if (Object.keys(statistics).length == 0) {
         return (
             <h1 className="text-rose-500 text-center text-6xl font-bold">
@@ -40,7 +47,7 @@ function Display({ statistics, onExit }: { statistics: Statistics, onExit: () =>
                     <div className="shadow p-4 col-span-2">
                         <p className="text-rose-500 text-base font-medium uppercase leading-4">Our record is</p>
                         <p className="text-gray-700 font-bold text-2xl inline-flex items-center space-x-2 my-2">
-                            <span>{statistics.top_day.count} messages on {statistics.top_day.date}</span>
+                            <span>{statistics.top_day.count} messages on {formatDate(statistics.top_day.date)}</span>
                         </p>
                     </div>
                     <div className="shadow p-4 col-span-2">
@@ -79,7 +86,7 @@ function Display({ statistics, onExit }: { statistics: Statistics, onExit: () =>
                                 if (!value) {
                                     return '0 messages';
                                 }
-                                return `${value.count} messages on ${value.date}`;
+                                return `${value.count} messages on ${formatDate(value.date)}`;
                             }}
                         />
                     </div>
