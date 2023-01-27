@@ -1,21 +1,41 @@
 import SQL, { Database } from '@signalapp/better-sqlite3';
 
 import { getDBPath, getDBKey } from './config';
-import { Conversation, Statistics, MessagesPerDay } from '../types.d';
+import { GetStatistics, GetConversations, Conversation, Statistics, MessagesPerDay, Result } from '../types.d';
 
 let db: Database | undefined = undefined;
 
-function init_db(): void {
+function init_db(): Result<void, string> {
     if (db) {
-        return;
+        return {
+            isOk: true,
+            value: undefined,
+        };
     }
 
-    db = new SQL(getDBPath(), { readonly: true });
-    db.pragma(`key = "x'${getDBKey()}'"`);
+    try {
+        db = new SQL(getDBPath(), { readonly: true });
+        db.pragma(`key = "x'${getDBKey()}'"`);
+        return {
+            isOk: true,
+            value: undefined,
+        };
+    } catch (e) {
+        return {
+            isOk: false,
+            error: 'Could not open Signal Desktop database. Please make sure Signal Desktop is installed.',
+        };
+    }
 }
 
-export function getConversations(): Conversation[] {
-    init_db();
+export function getConversations(): GetConversations {
+    const result = init_db();
+    if (result.isOk == false) {
+        return {
+            isOk: false,
+            error: result.error,
+        };
+    }
 
     const stm = db.prepare(`SELECT id, name FROM conversations
                             WHERE type="private" AND active_at IS NOT NULL 
@@ -28,10 +48,13 @@ export function getConversations(): Conversation[] {
             name: convo['name'],
         });
     }
-    return convos;
+    return {
+        isOk: true,
+        value: convos,
+    };
 }
 
-export function getStatistics(conversationId: string): Statistics {
+export function getStatistics(conversationId: string): GetStatistics {
     const stats: Statistics = {
         'name': '',
         'total_messages': -1,
@@ -46,7 +69,13 @@ export function getStatistics(conversationId: string): Statistics {
         'last_date': '',
     }
 
-    init_db();
+    const result = init_db();
+    if (result.isOk == false) {
+        return {
+            isOk: false,
+            error: result.error,
+        };
+    }
 
     stats['name'] = db.prepare('SELECT name FROM conversations WHERE id = ?').get(conversationId)['name'];
 
@@ -61,5 +90,8 @@ export function getStatistics(conversationId: string): Statistics {
     stats['total_days'] = db.prepare('SELECT COUNT(DISTINCT DATE(sent_at/1000, "unixepoch")) as total FROM messages WHERE conversationId = ? AND type != "call-history"').get(conversationId)['total'];
 
     stats['total_calls'] = db.prepare('SELECT COUNT(*) as total FROM messages WHERE type = "call-history" AND json_extract(json, "$.callHistoryDetails.wasDeclined") = False AND conversationId = ?').get(conversationId)['total'];
-    return stats;
+    return {
+        isOk: true,
+        value: stats,
+    };
 }
