@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import Display from './Display';
 import SelectConversation from './SelectConversation';
 import ErrorView from './ErrorView';
-import { Conversation, Statistics } from './types.d';
+import { Conversation } from './types.d';
 
 function App() {
     const [conversations, setConversations]: [Conversation[], any] = useState([]);
