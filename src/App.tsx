@@ -3,26 +3,53 @@ import ReactDOM from 'react-dom/client';
 
 import Display from './Display';
 import SelectConversation from './SelectConversation';
+import ErrorView from './ErrorView';
+import { Conversation, Statistics } from './types.d';
 
 function App() {
-    const [conversationId, setConversationId]: [string, any] = useState('');
-    const [statistics, setStatistics]: [any, any] = useState({});
+    const [conversations, setConversations]: [Conversation[], any] = useState([]);
+    const [statistics, setStatistics]: [any, (stats: Statistics) => void] = useState({});
+    const [conversationId, setConversationId]: [string, (convoId: string) => void] = useState('');
+    const [errorMessage, setErrorMessage]: [string, (msg: string) => void] = useState('');
 
     const handleSelect = (convoId: string): void => setConversationId(convoId);
     const handleExit = () => setConversationId('');
 
     useEffect(() => {
       if (conversationId) {
-        window.electronAPI.getStatistics(conversationId)
-          .then((res: any) => setStatistics(res));
+        const getStatistics = async () => {
+          const result = await window.electronAPI.getStatistics(conversationId);
+          if (result.isOk === false) {
+            setErrorMessage(result.error);
+          } else {
+            setErrorMessage('');
+            setStatistics(result.value);
+          }
+        };
+        getStatistics();
       }
     }, [conversationId]);
 
+    useEffect(() => {
+      const getConversations = async () => {
+        const result = await window.electronAPI.getConversations();
+        if (result.isOk === false) {
+          setErrorMessage(result.error);
+        } else {
+          setErrorMessage('');
+          setConversations(result.value);
+        }
+      };
+      getConversations();
+    }, []);
+
     let toDisplay;
-    if (conversationId) {
+    if (errorMessage) {
+      toDisplay = <ErrorView message={errorMessage} />;
+    } else if (conversationId) {
       toDisplay = <Display statistics={statistics} onExit={handleExit} />;
     } else {
-      toDisplay = <SelectConversation onSelect={handleSelect} />;
+      toDisplay = <SelectConversation conversations={conversations} onSelect={handleSelect} />;
     }
     return (
       <div className="mt-6 px-24 container mx-auto">

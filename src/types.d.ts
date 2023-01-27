@@ -1,3 +1,5 @@
+export type Result<T, E> = { isOk: true; value: T } | { isOk: false; error: E };
+
 export type Conversation = {
     name: string;
     id: string;
@@ -19,12 +21,15 @@ export interface Statistics {
     last_date: string,
 }
 
+export type GetConversations = Result<Conversation[], string>;
+export type GetStatistics = Result<Statistics, string>;
+
 export interface APIGetConversations {
-    (): Promise<Conversation[]>;
+    (): Promise<GetConversations>;
 }
 
 export interface APIGetStatistics {
-    (conversationId: string): Promise<Statistics>;
+    (conversationId: string): Promise<GetStatistics>;
 }
 
 declare global {

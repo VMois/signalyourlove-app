@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Conversation } from './types.d';
 
-export default function SelectConversation({ onSelect }: { onSelect: (convoId: string) => void }) {
-    const [conversations, setConversations]: [Conversation[], any] = useState([]);
+export default function SelectConversation({ conversations, onSelect }: { conversations: Conversation[], onSelect: (convoId: string) => void }) {
     const [conversationId, setConversationId]: [string, any] = useState('');
 
     const onInput = (e: React.FormEvent<HTMLSelectElement>) => {
@@ -11,12 +10,10 @@ export default function SelectConversation({ onSelect }: { onSelect: (convoId: s
     }
 
     useEffect(() => {
-        window.electronAPI.getConversations()
-            .then((res: any) => {
-                setConversationId(res.length ? res[0].id : '');
-                setConversations(res);
-            });
-    }, []);
+        if (conversations.length > 0) {
+            setConversationId(conversations[0].id);
+        }
+    }, [conversations]);
 
     return (
         <div className="mt-6 px-24 container mx-auto">
