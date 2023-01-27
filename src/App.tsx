@@ -8,7 +8,7 @@ import { Conversation, Statistics } from './types.d';
 
 function App() {
     const [conversations, setConversations]: [Conversation[], any] = useState([]);
-    const [statistics, setStatistics]: [any, (stats: Statistics) => void] = useState({});
+    const [statistics, setStatistics]: [any, any] = useState({});
     const [conversationId, setConversationId]: [string, (convoId: string) => void] = useState('');
     const [errorMessage, setErrorMessage]: [string, (msg: string) => void] = useState('');
 
@@ -17,6 +17,7 @@ function App() {
 
     useEffect(() => {
       if (conversationId) {
+        setStatistics({});
         const getStatistics = async () => {
           const result = await window.electronAPI.getStatistics(conversationId);
           if (result.isOk === false) {
