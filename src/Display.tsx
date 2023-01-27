@@ -51,6 +51,10 @@ function Display({ statistics, onExit }: { statistics: Statistics, onExit: () =>
                         </p>
                     </div>
                     <div className="shadow p-4 col-span-2">
+                        <p className="text-rose-500 text-base font-medium uppercase leading-4">The messages we exchanged</p>
+                        <p className="text-gray-700 text-sm font-medium inline-flex items-center space-x-2 my-4">
+                            Each cell represents a day. The darker the color, the more messages were exchanged on that day. Hover over a cell to see the date and the number of messages.
+                        </p>
                         <CalendarHeatmap
                             startDate={new Date(statistics.first_date)}
                             endDate={new Date(statistics.last_date)}
