@@ -27,7 +27,7 @@ function Display({ statistics, onExit }: { statistics: Statistics, onExit: () =>
                 </div>
                 <div className="grid grid-cols-2 gap-8">
                     <div className="shadow p-4 col-span-2">
-                        <p className="text-rose-500 text-base font-medium uppercase leading-4">We have been writing to each other endlessly for</p>
+                        <p className="text-rose-500 text-base font-medium uppercase leading-4">We have been writing to each other for</p>
                         <p className="text-gray-700 font-bold text-2xl inline-flex items-center space-x-2 mt-2">
                             <span>{statistics.total_days} days</span>
                         </p>
