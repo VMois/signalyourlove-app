@@ -26,7 +26,9 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.webContents.openDevTools();
+  }
 
   // open a default browser in case external links are clicked inside the app
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
