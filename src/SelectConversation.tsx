@@ -40,9 +40,11 @@ export default function SelectConversation({ conversations, onSelect }: { conver
             </button>
             <div className="mt-12 lg:mt-24">
                 <h2 className="text-center mb-4 text-1xl text-gray-700">
-                    Visit <a className="text-rose-500" target="_blank" href="https://signalyourlove.app">signalyourlove.app</a> for more information
+                    If you like the app, consider <a target="_blank" href="https://signalyourlove.app/donate" className="font-medium text-rose-500 hover:underline">donating</a> to support the project. Thank you!
                 </h2>
-                <h2 className="text-center text-1xl text-gray-700">Created by Vladyslav Moisieienkov</h2>
+                <h2 className="text-center text-sm text-gray-700">
+                    Created by <a target="_blank" href="https://vmois.dev" className="font-medium text-rose-500 hover:underline">Vladyslav Moisieienkov</a>
+                </h2>
             </div>
         </div>
     );
