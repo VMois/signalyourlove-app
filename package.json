@@ -6,8 +6,9 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
+    "package": "env $(cat .env | xargs) electron-forge package",
+    "make-x64-darwin": "env $(cat .env | xargs) electron-forge make --arch=x64 --platform=darwin",
+    "make-arm64-darwin": "env $(cat .env | xargs) electron-forge make --arch=arm64 --platform=darwin",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
@@ -19,9 +20,7 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
-    "@electron-forge/maker-deb": "^6.0.4",
-    "@electron-forge/maker-rpm": "^6.0.4",
-    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-dmg": "^6.0.5",
     "@electron-forge/maker-zip": "^6.0.4",
     "@electron-forge/plugin-webpack": "^6.0.4",
     "@types/better-sqlite3": "^7.6.3",
