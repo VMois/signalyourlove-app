@@ -1,7 +1,7 @@
 {
   "name": "signalyourlove",
   "productName": "Signal Your Love",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "The app to display your Signal chat statistics",
   "main": ".webpack/main",
   "scripts": {
