@@ -1,3 +1,8 @@
+/*
+  Author(s): Vladyslav Moisieienkov
+  License: GNU General Public License version 3 (GPL-3.0)
+*/
+
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { getConversations, getStatistics } from './channels';
 

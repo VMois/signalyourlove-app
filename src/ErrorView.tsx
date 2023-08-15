@@ -1,3 +1,8 @@
+/*
+  Author(s): Vladyslav Moisieienkov
+  License: GNU General Public License version 3 (GPL-3.0)
+*/
+
 export default function ErrorView({ message }: { message: string }) {
     return (
         <div className="flex h-screen">
