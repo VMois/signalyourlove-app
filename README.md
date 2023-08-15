@@ -1,6 +1,14 @@
 # Signal Your Love
 
-The desktop app that allows you to securely display a beautiful statistics of your Signal conversations.
+The desktop app allows to display statistics of your [Signal Desktop](https://signal.org/download/) chats. The app is ideal for long-distance couples, friends, and anyone who wants to cherish their chat history with essential people. The app is built with ElectronJS and React.
+
+![Signal Your Love app main screen](./showcase_main.png)
+
+**The Signal Desktop app must be installed**. The Signal Your Love app can only read messages that are present in Signal Desktop.
+
+**Your conversation history never leaves your computer**. The app works offline with your local Signal Desktop database. No data is sent to us. If you are interested in technical details, please, read [the article](https://vmois.dev/query-signal-desktop-messages-sqlite/).
+
+The official website: [https://signalyourlove.app](https://signalyourlove.app)
 
 ## MacOS
 
@@ -22,7 +30,3 @@ $ codesign --display --entitlements :- Signal\ Your\ Love.app
 ```bash
 $ spctl -a -vvv -t install out/Signal\ Your\ Love-darwin-arm64/Signal\ Your\ Love.app
 ```
-
-## How to open Signal database locally?
-
-Refer to [the article on vmois.dev](https://vmois.dev/query-signal-desktop-messages-sqlite/) for more details.
