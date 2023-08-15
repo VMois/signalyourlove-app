@@ -1,3 +1,8 @@
+/*
+  Author(s): Vladyslav Moisieienkov
+  License: GNU General Public License version 3 (GPL-3.0)
+*/
+
 import SQL, { Database } from '@signalapp/better-sqlite3';
 
 import { getDBPath, getDBKey } from './config';

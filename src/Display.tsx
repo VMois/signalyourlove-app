@@ -1,3 +1,8 @@
+/*
+  Author(s): Vladyslav Moisieienkov
+  License: GNU General Public License version 3 (GPL-3.0)
+*/
+
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 

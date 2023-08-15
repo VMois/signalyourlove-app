@@ -1,3 +1,8 @@
+/*
+  Author(s): Vladyslav Moisieienkov
+  License: GNU General Public License version 3 (GPL-3.0)
+*/
+
 export type Result<T, E> = { isOk: true; value: T } | { isOk: false; error: E };
 
 export type Conversation = {
